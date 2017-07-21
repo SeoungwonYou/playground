@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: local
+logging:
+  path:  /temp
+  config: classpath:logback-local.xml

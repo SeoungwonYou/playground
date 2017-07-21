@@ -1,0 +1,25 @@
+##### Eclipse.gitignore
+*.pydevproject
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+/build
+/bin
+
+##### Package Files 
+.classpath
+.gradle
+gradle/
+.project
+.settings/
+*.jar
+*.war
+*.ear

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="false">
+
+	<property name="LOG_DIR" value="${LOG_PATH}" />
+    <property name="MAX_DAY" value="7" />
+    
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%level][%d{MM-dd HH:mm:ss.SSS}][%thread] "%logger{35}" - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="APP_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/application.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/application.%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxFileSize>10GB</maxFileSize>
+            <maxHistory>${MAX_DAY}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%level][%d{HH:mm:ss.SSS}] %class{36}.%M %L - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <logger name="APP_LOGGER" level="INFO" additivity="true">
+        <appender-ref ref="APP_FILE" />
+    </logger>
+    
+    <root level="WARN">
+    	<appender-ref ref="STDOUT" />
+    </root>
+    
+</configuration>

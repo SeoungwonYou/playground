@@ -1,0 +1,78 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+    id "com.google.protobuf" version "0.8.1"
+    id "org.asciidoctor.convert" version "1.5.3"
+    id "org.springframework.boot" version "1.5.2.RELEASE"
+}
+
+ext {
+    bootVersion = '1.5.2.RELEASE'
+    snippetsDir = file('build/generated-snippets')
+}
+
+jar {
+
+	baseName = 'hbase-sample'
+	version = '0.1.0'
+	
+	manifest { 
+	  attributes "Main-Class": ""
+	}
+	
+	from {
+	  configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}
+
+repositories {
+	maven { url "https://plugins.gradle.org/m2/" }
+    mavenCentral()
+    jcenter()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+allprojects {
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+    sourceSets {
+    	main {
+	        java {
+	            srcDir 'src/main/java'
+	            srcDir 'src/main/resources'
+	        	srcDir 'build/generated/source/proto/main/java'
+	        }
+	        proto {
+	            srcDir 'proto'
+	        }
+	    }
+	    
+        test {
+            java {
+                srcDirs = ["src/test/java/unit", 'src/test/java/integration']
+            }
+            resources {
+                srcDir "src/test/resources"
+            }
+        }
+    }
+}
+
+configurations.all {
+    exclude group: 'org.slf4j', module: 'log4j-over-slf4j'
+}
+
+
+dependencies {
+
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: bootVersion
+    
+	// https://mvnrepository.com/artifact/org.apache.hbase/hbase-client
+	compile group: 'org.apache.hbase', name: 'hbase-client', version: '0.98.12-hadoop2'
+
+    testCompile 'junit:junit:4.12'
+}
