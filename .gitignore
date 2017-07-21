@@ -1,4 +1,5 @@
 docker/c3
+<<<<<<< HEAD
 
 ##### Eclipse.gitignore
 *.pydevproject
@@ -15,3 +16,5 @@ local.properties
 .loadpath
 /build
 /bin
+=======
+>>>>>>> 1b2d5ffd64e4acbd2723f8501ac6710c54f2fef9

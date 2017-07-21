@@ -23,3 +23,4 @@ ADD run.hbase.sh  /var/opt/run.hbase.sh
 RUN echo "export JAVA_HOME=/usr/local/java/" >> /usr/local/hbase/conf/hbase-env.sh
 
 CMD ["/var/opt/run.hbase.sh"]
+
