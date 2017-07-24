@@ -47,6 +47,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
   
+  config.vm.hostname = "vm-dev"
+
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
@@ -104,10 +106,34 @@ END
     
 	cd /usr/local/src
 	wget http://www-us.apache.org/dist/kafka/0.10.1.0/kafka_2.11-0.10.1.0.tgz
-    tar -xvf kafka_2.11-0.10.1.0.tgz
-    mv kafka_2.11-0.10.1.0 /opt    
-    
-    sed -i -- 's/-Xmx1G -Xms1G/-Xmx256M -Xms128M/g' /opt/kafka_2.11-0.10.1.0/bin/kafka-server-start.sh
+        tar -xvf kafka_2.11-0.10.1.0.tgz
+        mv kafka_2.11-0.10.1.0 /opt    
+        
+	sed -i -- 's/-Xmx1G -Xms1G/-Xmx256M -Xms128M/g' /opt/kafka_2.11-0.10.1.0/bin/kafka-server-start.sh
+
+	cd /usr/local/src
+	wget http://archive.apache.org/dist/hbase/0.98.12.1/hbase-0.98.12.1-hadoop2-bin.tar.gz
+	cd ../
+	tar zxf src/hbase*.gz
+        ln -s hbase-0.98.12.1-hadoop2 hbase
+
+	mkdir -p /usr/local/hbase/data/hbase
+	mkdir -p /usr/local/hbase/data/zookeeper
+
+cat << END > /usr/local/hbase/conf/hbase-site.xml
+<configuration>
+  <property>
+      <name>hbase.rootdir</name>
+      <value>file:///usr/local/hbase/data/hbase</value>
+  </property>
+  <property>
+      <name>hbase.zookeeper.property.dataDir</name>
+      <value>/usr/local/hbase/data/zookeeper</value>
+  </property>
+</configuration>
+END
+       echo "export JAVA_HOME=/usr/local/java/" >> /usr/local/hbase/conf/hbase-env.sh
+       
 
   SHELL
   
