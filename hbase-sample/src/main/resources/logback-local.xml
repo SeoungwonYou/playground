@@ -28,7 +28,7 @@
         <appender-ref ref="APP_FILE" />
     </logger>
     
-    <root level="INFO">
+    <root level="DEBUG">
     	<appender-ref ref="STDOUT" />
     </root>
     
