@@ -1,0 +1,26 @@
+[
+	{
+		"index": 0,	"fieldName": "stringField"
+	},
+	{
+		"index": 1,	"fieldName": "integerField"
+	},
+	{
+		"index": 2,	"fieldName": "pIntField"
+	},
+	{
+		"index": 3,	"fieldName": "doubleField"
+	},
+	{
+		"index": 4,	"fieldName": "pDoubleField"
+	},
+	{
+		"index": 5,	"fieldName": "longField"
+	},
+	{
+		"index": 6,	"fieldName": "pLongField"
+	},
+	{
+		"index": 7,	"fieldName": "dateField"
+	}
+]
